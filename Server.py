@@ -1,5 +1,6 @@
 from multiprocessing.resource_sharer import stop
 import socket,time,os
+
 import AlphaBot,sqlite3
 alpha = AlphaBot.AlphaBot()
 dizio = {"s": alpha.stop,"f":alpha.ForwardistanceControl,"b":alpha.BackwardistanceControl,"l":alpha.LeftdistanceControl,"r":alpha.RightdistanceControl}
@@ -29,9 +30,9 @@ def main():
         if len(dato) == 1:
             res = cur.execute(f"SELECT Movimento FROM Movimenti WHERE ID = {dato}")
             dati = str(res.fetchone()[0]).split(";")
+            print(dati)
             for dato in dati:
                 dati = dato.split(",")
-                print(dato,dati)
                 if dato[0] == "s":
                     alpha.stop()
                     time.sleep(int(dati[1]))

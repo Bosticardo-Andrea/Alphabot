@@ -11,8 +11,8 @@ class AlphaBot(object):
         self.IN4 = in4
         self.ENA = ena
         self.ENB = enb
-        self.speedA=50
-        self.speedB=50
+        self.speedA=70
+        self.speedB=70
 
 
         GPIO.setmode(GPIO.BCM)
@@ -31,7 +31,7 @@ class AlphaBot(object):
         self.PWMB.start(self.speedB)
         self.stop()
 
-    def left(self):
+    def right(self):
         self.PWMA.ChangeDutyCycle(self.speedA)
         self.PWMB.ChangeDutyCycle(self.speedB)
         GPIO.output(self.IN1, GPIO.HIGH)
@@ -47,7 +47,7 @@ class AlphaBot(object):
         GPIO.output(self.IN3, GPIO.LOW)
         GPIO.output(self.IN4, GPIO.LOW)
 
-    def right(self):
+    def left(self):
         self.PWMA.ChangeDutyCycle(self.speedA)
         self.PWMB.ChangeDutyCycle(self.speedB)
         GPIO.output(self.IN1, GPIO.LOW)
@@ -96,7 +96,7 @@ class AlphaBot(object):
             GPIO.output(self.IN3, GPIO.LOW)
             GPIO.output(self.IN4, GPIO.HIGH)
             self.PWMB.ChangeDutyCycle(0 - left)
-    def ForwardistanceControl(self,distance=1000):
+    def BackwardistanceControl(self,distance=1000):
         ultimoStato = [GPIO.input(8),GPIO.input(7)]
         contaStati,statiTotali,statiPerRotazione,contaRotazioni = [0,0],[0,0],40,[0,0]
         distazaPerStep = 207/statiPerRotazione
@@ -145,10 +145,10 @@ class AlphaBot(object):
                 contaRotazioni[1] += 1 
                 contaStati[1] = 0
             if distazaPerStep * statiTotali[0] >= distance or distazaPerStep * statiTotali[1] >= distance:
-                print(f"distanza percorsa {int(distazaPerStep * statiTotali[0])}")
+                print(f"distanza percorsa {int(distazaPerStep * statiTotali[0])},{distazaPerStep * statiTotali[1]}")
                 self.stop()
                 break
-    def BackwardistanceControl(self,distance=1000):
+    def ForwardistanceControl(self,distance=1000):
         ultimoStato = [GPIO.input(8),GPIO.input(7)]
         contaStati,statiTotali,statiPerRotazione,contaRotazioni = [0,0],[0,0],40,[0,0]
         distazaPerStep = 207/statiPerRotazione
