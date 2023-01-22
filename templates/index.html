@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link rel="stylesheet" type="text/css" href="file:///C:/Users/Client/Downloads/bootstrap-5.2.3-dist/bootstrap-5.2.3-dist/css/bootstrap.min.css">
+</head>
+
+<body>
+    <form method="post" action="/">
+        <div id="bottoni">
+            <button type="submit" class="btn btn-light" value="su" name="su">SU</button>
+            <button type="submit" class="btn btn-light" value="giu" name="giu">GIU</button>
+            <button type="submit" class="btn btn-light" value="sx" name="sx">SX</button>
+            <button type="submit" class="btn btn-light" value="dx" name="dx">DX</button>        
+            <input type="text" placeholder="distanza[cm]" name="dist" value="{{request.form.dist }}"> 
+            <h4>distanza {{ distanza }}!</h4>
+        </div>
+    </form>    
+<script src="file:////home/pi/bootstrap-5.2.3-dist/bootstrap-5.2.3-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,7 +1,28 @@
 from multiprocessing.resource_sharer import stop
 import socket,time,os
-
+from flask import Flask, render_template, request
 import AlphaBot,sqlite3
+app = Flask(__name__)
+@app.route("/", methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        if request.form.get('su') == 'su':
+            dist = request.form['dist']
+            funzione(f"f,{dist}")
+        elif  request.form.get('giu') == 'giu':
+            dist = request.form['dist']
+            funzione(f"b,{dist}")
+        elif  request.form.get('dx') == 'dx':
+            gradi = request.form['gradi']
+            funzione(f"r,{gradi}")
+        elif  request.form.get('sx') == 'sx':
+            gradi = request.form['gradi']
+            funzione(f"l,{gradi}")
+        else:
+            print("Unknown")
+    elif request.method == 'GET':
+        return render_template('index.html')
+    return render_template("index.html",distanza=alpha.distanzaPercorsa)
 alpha = AlphaBot.AlphaBot()
 dizio = {"s": alpha.stop,"f":alpha.ForwardistanceControl,"b":alpha.BackwardistanceControl,"l":alpha.LeftdistanceControl,"r":alpha.RightdistanceControl}
 db = sqlite3.connect("./robot.db")
@@ -13,6 +34,7 @@ def funzione(dato):
     else:
         dizio[dati[0]](int(dati[1]))
 def main():
+    global dato
     es = os.popen("vcgencmd get_throttled")
     ris = es.read()
     print(ris)
@@ -43,4 +65,5 @@ def main():
             funzione(dato)
         
 if __name__=="__main__":
+    app.run(debug=True, host='0.0.0.0')
     main()

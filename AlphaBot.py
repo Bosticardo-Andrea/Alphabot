@@ -11,9 +11,9 @@ class AlphaBot(object):
         self.IN4 = in4
         self.ENA = ena
         self.ENB = enb
-        self.speedA=70
-        self.speedB=70
-
+        self.speedA=90
+        self.speedB=90
+        self.distanzaPercorsa = None
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
@@ -146,6 +146,7 @@ class AlphaBot(object):
                 contaStati[1] = 0
             if distazaPerStep * statiTotali[0] >= distance or distazaPerStep * statiTotali[1] >= distance:
                 print(f"distanza percorsa {int(distazaPerStep * statiTotali[0])},{distazaPerStep * statiTotali[1]}")
+                self.distanzaPercorsa = int(distazaPerStep * statiTotali[0])                
                 self.stop()
                 break
     def ForwardistanceControl(self,distance=1000):
@@ -198,6 +199,7 @@ class AlphaBot(object):
                 contaStati[1] = 0
             if distazaPerStep * statiTotali[0] >= distance or distazaPerStep * statiTotali[1] >= distance:
                 print(f"distanza percorsa {int(distazaPerStep * statiTotali[0])}")
+                self.distanzaPercorsa = int(distazaPerStep * statiTotali[0])                
                 self.stop()
                 break
     def LeftdistanceControl(self,angle=129):
