@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-
+<title>Robot Bostik-Rebu</title>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,13 +9,16 @@
 </head>
 
 <body>
-    <form method="post" action="/">
+    <form method="post" action="">
         <div id="bottoni">
             <button type="submit" class="btn btn-light" value="su" name="su">SU</button>
             <button type="submit" class="btn btn-light" value="giu" name="giu">GIU</button>
             <button type="submit" class="btn btn-light" value="sx" name="sx">SX</button>
-            <button type="submit" class="btn btn-light" value="dx" name="dx">DX</button>        
+            <button type="submit" class="btn btn-light" value="dx" name="dx">DX</button> 
+            <button type="submit" class="btn btn-light" value="cmd" name="cmd">CMD</button>        
             <input type="text" placeholder="distanza[cm]" name="dist" value="{{request.form.dist }}"> 
+            <input type="text" placeholder="angolo[gardi]" name="gradi" value="{{request.form.gradi }}"> 
+            <input type="text" placeholder="comando" name="comando" value="{{request.form.comando }}"> 
             <h4>distanza {{ distanza }}!</h4>
         </div>
     </form>    
