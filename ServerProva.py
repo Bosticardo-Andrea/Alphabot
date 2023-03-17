@@ -23,7 +23,7 @@ def validate(username, password):
     for row in rows:
         dbUser = row[0]
         dbPass = row[1]
-        if dbUser==username:
+        if dbUser==hash.creaDigest(username):
             completion=check_password(dbPass, hash.creaDigest(password))
     return completion
 def check_password(hashed_password, user_password):
@@ -36,7 +36,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         completion = validate(username, password)
-        print(completion)
+        print(completion,username,password)
         if completion ==False:
             error = 'Invalid Credentials. Please try again.'
         else:

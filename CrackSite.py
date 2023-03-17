@@ -48,4 +48,3 @@ except Exception as e:
 finally:
     for th in listT:
         th.join()
-    sys.exit()
